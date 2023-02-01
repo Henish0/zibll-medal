@@ -1,6 +1,6 @@
 <?php
 /**
- * Template name: Zibll-文章归档
+ * Template name: Zibll-勋章中心
  * Description:   A archives page
  */
 require 'wp-load.php';
