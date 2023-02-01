@@ -11,8 +11,8 @@
 # 设置勋章中心
 - 可以把mx-medal.php直接上传到根目录直接访问文件，也可以添加到zibll\pages文件夹在wordpress后台添加页面模板！
 # 引用在主题显示
-1.在作者个人主页显示：zibll\inc\functions\zib-author.php的第157行function zib_author_content()函数里面添加代码
-```php
+- 1.在作者个人主页显示：zibll\inc\functions\zib-author.php的第157行function zib_author_content()函数里面添加代码
+ ```php
     //改动开始
         $uid = $author_id;
         $xz = mx_query_xz($uid);
@@ -22,7 +22,7 @@
         }else {
             echo $html;
         }
-```
+ ```
 
 - ###列如
 ```php
