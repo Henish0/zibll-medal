@@ -2,7 +2,7 @@
 ### 使用前可以自行修改func.php里面的勋章分辨率等参数！
 ### 因为没写后台所以添加勋章请手动在数据库添加，后台有默认的勋章数据按照格式添加就行
 ### 还请把默认的勋章图片链接更换为自己的链接，不要直接使用，谢谢！
-#### 演示
+### 演示
 <img decoding="async" src="https://img.xhacgn.com/images/2023/02/01/-2022-06-19-192642.png" width="50%">
 <img decoding="async" src="https://img.xhacgn.com/images/2023/02/01/-2022-06-19-192531.png" width="50%">
 <img decoding="async" src="https://img.xhacgn.com/images/2023/02/01/-2022-06-19-192558.png" width="50%">
@@ -12,7 +12,7 @@
 - 可以把mx-medal.php直接上传到根目录直接访问文件，也可以添加到zibll\pages文件夹在wordpress后台添加页面模板！
 # 引用在主题显示
 1.在作者个人主页显示：zibll\inc\functions\zib-author.php的第157行function zib_author_content()函数里面添加代码
- ```php
+```php
     //改动开始
         $uid = $author_id;
         $xz = mx_query_xz($uid);
@@ -22,7 +22,7 @@
         }else {
             echo $html;
         }
- ```
+```
 
 - ###列如
 ```php
