@@ -2,7 +2,7 @@
 - 1.把func.php上传到主题跟目录
 - 2.导入xz.sql到数据库
 # 引用在主题显示
-1.在zibll\inc\functions\zib-author.php的第157行function zib_author_content()函数里面添加代码
+1.在作者个人主页显示：zibll\inc\functions\zib-author.php的第157行function zib_author_content()函数里面添加代码
  ```php
     //改动开始
         $uid = $author_id;
@@ -84,3 +84,108 @@ function zib_author_content()
     }
 }
 ```
+# 在文章页作者卡片显示：在zibll\inc\functions\zib-author.php的第628行function zib_get_user_card_box函数添加代码
+```php
+    //改动开始
+    $uid = get_post_field ('post_author', get_the_ID());
+    $xz = mx_query_xz($uid);
+    if ($xz != 'null'){
+        $xzhtml = mx_xz_html($uid);
+        echo $html . $xzhtml;
+    }else{
+        echo $html;
+    }
+```
+### 列如
+```php
+//新版的用户小工具
+function zib_get_user_card_box($args = array(), $echo = false)
+{
+    $defaults = array(
+        'user_id'            => 0,
+        'class'              => '',
+        'show_posts'         => true,
+        'show_checkin'       => false,
+        'show_img_bg'        => false,
+        'show_button'        => true,
+        'button_1'           => 'post',
+        'button_1_text'      => '发布文章',
+        'button_1_class'     => 'jb-pink',
+        'button_2'           => 'home',
+        'button_2_text'      => '用户中心',
+        'button_2_class'     => 'jb-blue',
+        'show_payvip_button' => false,
+        'limit'              => 6,
+        'orderby'            => 'views',
+        'post_type'          => 'post',
+        'post_style'         => 'card',
+    );
+
+    $args = wp_parse_args((array) $args, $defaults);
+
+    if (!$args['user_id']) {
+        return;
+    }
+
+    $user_id   = $args['user_id'];
+    $cuid      = get_current_user_id();
+    $avatar    = zib_get_avatar_box($user_id, 'avatar-img avatar-lg');
+    $name      = zib_get_user_name("id=$user_id&class=flex1 flex ac&follow=true");
+    $tag_metas = zib_get_user_badges($user_id);
+    $btns      = '';
+    $post      = '';
+    $checkin   = '';
+
+    if (!$cuid || $cuid != $user_id) {
+        $args['show_button'] = false;
+    }
+    if ($args['show_posts'] && $args['limit'] > 0) {
+        $post = zib_get_user_card_post($args);
+    }
+    if ($args['show_checkin'] && get_current_user_id() == $user_id) {
+        $checkin = zib_get_user_checkin_btn('img-badge jb-yellow', '<i class="fa fa-calendar-check-o ml3 mr6"></i>签到', '<i class="ml3 mr6 fa fa-calendar-check-o"></i>已签到');
+    }
+
+    if ($args['show_button']) {
+        $btns .= zib_get_new_add_btns([$args['button_1']], 'but pw-1em mr6 ' . $args['button_1_class'], $args['button_1_text']);
+        if ('home' === $args['button_2']) {
+            $btns .= zib_get_user_home_link($user_id, 'but pw-1em ml6 ' . $args['button_2_class'], $args['button_2_text']);
+        } else {
+            $btns .= zib_get_user_center_link('but pw-1em ml6 ' . $args['button_2_class'], $args['button_2_text']);
+        }
+        $btns = '<div class="user-btns mt20">' . $btns . '</div>';
+    }
+
+    $cover = $args['show_img_bg'] ? '<div class="user-cover graphic" style="padding-bottom: 50%;">' . get_user_cover_img($user_id) . '</div>' : '';
+
+    $html = '<div class="user-card zib-widget ' . $args['class'] . '">' . $cover . '
+        <div class="card-content mt10 relative">
+            <div class="user-content">
+                ' . $checkin . '
+                <div class="user-avatar">' . $avatar . '</div>
+                <div class="user-info mt20 mb10">
+                    <div class="user-name flex jc">' . $name . '</div>
+                    <div class="author-tag mt10 mini-scrollbar">' . $tag_metas . '</div>
+                    <div class="user-desc mt10 muted-2-color em09">' . get_user_desc($user_id) . '</div>
+                    ' . $btns . '
+                </div>
+            </div>
+            ' . $post . '
+        </div>
+    </div>';
+
+    if (!$echo) {
+        return $html;
+    }
+    //改动开始
+    $uid = get_post_field ('post_author', get_the_ID());
+    $xz = mx_query_xz($uid);
+    if ($xz != 'null'){
+        $xzhtml = mx_xz_html($uid);
+        echo $html . $xzhtml;
+    }else{
+        echo $html;
+    }
+}
+```
+
