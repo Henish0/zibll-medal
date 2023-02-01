@@ -3,8 +3,7 @@
 - 2.导入xz.sql到数据库
 # 引用在主题显示
 1.在zibll\inc\functions\zib-author.php的第157行function zib_author_content()函数里面添加代码
-
--    ```php
+ ```php
     //改动开始
         $uid = $author_id;
         $xz = mx_query_xz($uid);
@@ -14,10 +13,10 @@
         }else {
             echo $html;
         }
-    ```
+ ```
 
 - ###列如
--   ```php
+```php
     /**
  * @description: 作者页主内容外框架
  * @param {*}
@@ -84,4 +83,4 @@ function zib_author_content()
         }
     }
 }
-    ```
+```
