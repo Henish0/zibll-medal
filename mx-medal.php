@@ -1,4 +1,8 @@
 <?php
+/**
+ * Template name: Zibll-文章归档
+ * Description:   A archives page
+*/
 require 'wp-load.php';
 get_header();
 $header_style = zib_get_page_header_style();
