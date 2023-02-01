@@ -11,4 +11,3 @@ require 'wp-load.php';
     }else{
     echo '您没有登录！';
     }
-
