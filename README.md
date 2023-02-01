@@ -24,7 +24,7 @@
         }
  ```
 
-- ###列如
+- ### 列如
 ```php
     /**
  * @description: 作者页主内容外框架
@@ -93,7 +93,7 @@ function zib_author_content()
     }
 }
 ```
-# 在文章页作者卡片显示：在zibll\inc\functions\zib-author.php的第628行function zib_get_user_card_box函数添加代码
+### 在文章页作者卡片显示：在zibll\inc\functions\zib-author.php的第628行function zib_get_user_card_box函数添加代码
 ```php
     //改动开始
     $uid = get_post_field ('post_author', get_the_ID());
